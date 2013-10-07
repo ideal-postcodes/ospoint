@@ -16,8 +16,8 @@ var MERCATOR_PROJECTIONS = {
 	national_grid: {
 		scaleFactor: 0.9996012717,
 		trueOrigin: {
-			longitude: 49.0,
-			latitude: -2.0,
+			longitude: -2,
+			latitude: 49,
 			eastings: 400000,
 			northings: -100000
 		},
@@ -25,9 +25,9 @@ var MERCATOR_PROJECTIONS = {
 	}
 }
 
-function OSPoint (point) {
-	this.northings = point.northings,
-	this.eastings = point.eastings;
+function OSPoint (northings, eastings) {
+	this.northings = northings,
+	this.eastings = eastings;
 }
 
 OSPoint.prototype.toOSGB36 = function () {
@@ -54,30 +54,59 @@ OSPoint.prototype.toETRS89 = function () {
 	};
 }
 
-/* UTILITY FUNCTIONS */
+OSPoint.prototype.toLongLat = function () {
+	return toLongLat(this.northings, this.eastings);
+}
+
+/* 
+ * UTILITY FUNCTIONS 
+ *
+ * These functions have been factored out and named to assist readability
+ * when used in conjunction with the translation equations provided by  
+ * Ordnance Survey
+ *
+ */
 
 OSPoint.toRadians = function (degrees) {
 	return toRadians(degrees);
 }
 
+OSPoint.toDegrees = function (radians) {
+	return toDegrees(radians);
+}
+
 OSPoint.nu = function (a, F0, e2, lat) {
-	return nu(a, F0, e2, lat);
+	var x = a * F0,
+			y = 1 - (e2 * sin2(lat));
+
+	return (x * Math.pow(y, -0.5));
 }
 
 OSPoint.rho = function (a, F0, e2, lat) {
-	return rho(a, F0, e2, lat);	
+	var x = a * F0,
+			y = 1 - e2,
+			z = 1 - (e2 * sin2(lat));
+	return x * y * Math.pow(z, -1.5);
 }
 
 OSPoint.e2 = function (a, b) {
-	return e2(a, b);
+	return (a*a - b*b) / (a*a);
 }
 
 OSPoint.M = function (a, b, F0, lat, lat0) {
-	return M(a, b, F0, lat, lat0);
+	var n = (a - b) / (a + b),
+			n2 = n * n,
+			n3 = n * n * n;
+
+	var w = (1 + n + (5/4)*n2 + (5/4)*n3) * (lat - lat0),
+			x = (3*n + 3*n2 + (21/8)*n3) * sin(lat - lat0) * cos(lat + lat0),
+			y = ((15/8)*n2 + (15/8)*n3) * sin(2*(lat -lat0)) * cos(2*(lat + lat0)),
+			z = (35/24)*n3 * sin(3*(lat - lat0)) * cos(3*(lat+lat0));
+	return b * F0 * (w - x + y - z);
 }
 
 OSPoint.eta2 = function (nu, rho) {
-	return eta2(nu, rho);
+	return (nu / rho) - 1;
 }
 
 OSPoint.toDecFromDMS = function (degrees, minutes, seconds) {
@@ -96,67 +125,121 @@ var cos = function (radians) {
 	return Math.cos(radians);
 }
 
+var tan = function (radians) {
+	return Math.tan(radians);
+}
+
+var tan2 = function (radians) {
+	return Math.pow(Math.tan(radians), 2);
+}
+
+var tan4 = function (radians) {
+	return Math.pow(Math.tan(radians), 4);
+}
+
+var tan6 = function (radians) {
+	return Math.pow(Math.tan(radians), 6);
+}
+
+var sec = function (radians) {
+	return Math.pow(Math.cos(radians), -1);
+}
+
 var toRadians = function (degrees) {
-	return degrees / 180 * Math.PI;
+	return (degrees / 180) * Math.PI;
+}
+
+var toDegrees = function (radians) {
+	return (radians / Math.PI) * 180;
 }
 
 var toDecFromDMS = function (degrees, minutes, seconds) {
 	return degrees + (minutes / 60) + (seconds / 3600);
 }
 
-/* C2 Equations */
-var e2 = function (a, b) {
-	return (a*a - b*b) / (a*a);
-}
-
-var nu = function (a, F0, e2, lat) {
-	var x = a * F0,
-			y = 1 - (e2 * sin2(lat));
-
-	return (x * Math.pow(y, -0.5));
-}
-
-var rho = function (a, F0, e2, lat) {
-	var x = a * F0,
-			y = 1 - e2,
-			z = 1 - (e2 * sin2(lat));
-	return x * y * Math.pow(z, -1.5);
-}
-
-var eta2 = function (nu, rho) {
-	return (nu / rho) - 1;
-}
-
-/* C3 Equation */
-
-var M = function (a, b, F0, lat, lat0) {
-	var n = (a - b) / (a + b),
-			n2 = n * n,
-			n3 = n * n * n;
-
-	var w = (1 + n + (5/4)*n2 + (5/4)*n3) * (lat - lat0),
-			x = (3*n + 3*n2 + (21/8)*n3) * sin(lat - lat0) * cos(lat + lat0),
-			y = ((15/8)*n2 + (15/8)*n3) * sin(2*(lat -lat0)) * cos(2*(lat + lat0)),
-			z = (35/24)*n3 * sin(3*(lat - lat0)) * cos(3*(lat+lat0));
-	return b * F0 * (w - x + y - z);
-}
-
-/*********************/
-
-
-var mercatorToGPS = function (point, options) {
+var toLongLat = function (northings, eastings) {
 	var projection = MERCATOR_PROJECTIONS['national_grid'],
-			eastings = point.eastings,
-			northings = point.northings,
 			ellipsoid = ELLIPSOID[projection.ellipsoid],
-			semiMajor = ellipsoid.a,
-			semiMinor = ellipsoid.b,
-			ellipsoidEccentricity = ((semiMajor * semiMajor) - (semiMinor * semiMinor)) / (semiMajor * semiMajor),
-			trueNorthings = projection.trueOrigin.northings,
-			trueEastings = projection.trueOrigin.eastings,
-			trueLatitude = toRadians(projection.trueOrigin.latitude),
-			trueLongitude = toRadians(projection.trueOrigin.longitude);
+			E = eastings,
+			N = northings,
+			a = ellipsoid.a,
+			b = ellipsoid.b,
+			e2 = OSPoint.e2(a, b),
+			F0 = projection.scaleFactor,
+			N0 = projection.trueOrigin.northings,
+			E0 = projection.trueOrigin.eastings,
+			lat0 = toRadians(projection.trueOrigin.latitude),
+			lon0 = toRadians(projection.trueOrigin.longitude),
+			latDashed = ((N - N0) / (a * F0)) + lat0, // Equation C6
+			M = OSPoint.M(a, b, F0, latDashed, lat0);
+
+	while (N - N0 - M >= 0.0001) {
+		latDashed = ((N - N0 - M) / (a * F0)) + latDashed; // Equation C7
+		M = OSPoint.M(a, b, F0, latDashed, lat0);	
+	}
+	
+	var rho = OSPoint.rho(a, F0, e2, latDashed),
+			nu = OSPoint.nu(a, F0, e2, latDashed),
+			eta2 = OSPoint.eta2(nu, rho),
+
+			VII = function (latDashed, nu, rho) {
+				return tan(latDashed) / (2 * rho * nu);
+			}(latDashed, nu, rho),
+
+			VIII = function (latDashed, nu, rho, eta2) {
+				var x = tan(latDashed) / (24 * rho * Math.pow(nu, 3)),
+						y = 5 + 3*tan2(latDashed) + eta2 - (9*tan2(latDashed)*eta2);
+				return x * y;
+			}(latDashed, nu, rho, eta2),
+
+			IX = function (latDashed, nu, rho) {
+				var x = tan(latDashed) / (720 * rho * Math.pow(nu, 5)),
+						y = 61 + 90*tan2(latDashed) + 45*tan4(latDashed);
+				return x * y;
+			}(latDashed, nu, rho),
+
+			X = function (latDashed, nu) {
+				return sec(latDashed) / nu;
+			}(latDashed, nu),
+
+			XI = function (latDashed, nu ,rho) {
+				var x = sec(latDashed) / (6 * Math.pow(nu, 3)),
+						y = (nu / rho) + (2 * tan2(latDashed));
+				return x * y;
+			}(latDashed, nu ,rho),
+
+			XII = function (latDashed, nu) {
+				var x = sec(latDashed) / (120 * Math.pow(nu, 5)),
+						y = 5 + 28*tan2(latDashed) + 24*tan4(latDashed);
+				return x * y;
+			}(latDashed, nu),
+
+			XIII = function (latDashed, nu) {
+				var x = sec(latDashed) / (5040 * Math.pow(nu, 7)),
+						y = 61 + 662*tan2(latDashed) + 1320*tan4(latDashed) + 720*tan6(latDashed);
+				return x * y;
+			}(latDashed, nu),
+			E = E - E0,
+			E2 = E  * E,
+			E3 = E2 * E,
+			E4 = E3 * E,
+			E5 = E4 * E,
+			E6 = E5 * E,
+			E7 = E6 * E,
+			lat = latDashed - VII*E2 + VIII*E4 - IX*E6,
+			lon = lon0 + X*E - XI*E3 + XII*E5 - XIII*E7;
+	
+	return {
+		latitude: OSPoint.toDegrees(lat),
+		longitude: OSPoint.toDegrees(lon)
+	};
 }
 
 
 module.exports = OSPoint;
+
+
+
+
+
+

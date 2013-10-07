@@ -15,13 +15,11 @@ var TOLERANCE = 0.000001,
 
 describe("OSPoint", function () {
 	it ("should return correct eastings and northings", function () {
-		osdata = {
-			northings: 12345678,
-			eastings: 12345678
-		}
-		point = new OSPoint(osdata);
-		assert.equal(point.northings, osdata.northings);
-		assert.equal(point.eastings, osdata.eastings);
+		var	northings= 12345678,
+				eastings= 12345678;
+				point = new OSPoint(northings, eastings);
+		assert.equal(point.northings, northings);
+		assert.equal(point.eastings, eastings);
 	});
 });
 
@@ -40,6 +38,14 @@ describe("#toRadians", function () {
 		assert.equal(roughEquals(OSPoint.toRadians(90), Math.PI / 2), true);
 	});
 });
+
+describe("#toDegrees", function () {
+	it ("should convert radians to degrees", function () {
+		assert.equal(roughEquals(OSPoint.toDegrees(Math.PI), 180), true);
+		assert.equal(roughEquals(OSPoint.toDegrees(0), 0), true);
+		assert.equal(roughEquals(OSPoint.toDegrees(Math.PI / 2), 90), true);
+	})
+})
 
 describe("#nu", function () {
 	it ("should return the correct value of nu", function () {
@@ -69,6 +75,7 @@ describe("#rho", function () {
 
 describe("#eta2", function () {
 	it ("should return the correct value of eta squared", function () {
+		// Airy 1830 Ellipsoid, National Grid example
 		var a = 6377563.396,
 				F0 = 0.9996012717,
 				e2 = OSPoint.e2(a, 6356256.909), 
@@ -83,6 +90,7 @@ describe("#eta2", function () {
 
 describe("#M", function () {
 	it ("should return the correct value of M", function () {
+		// Airy 1830 Ellipsoid, National Grid example
 		var a = 6377563.396,
 				b = 6356256.909,
 				F0 = 0.9996012717,
@@ -93,6 +101,19 @@ describe("#M", function () {
 		assert.equal(roughEquals(expected, result), true);
 	});
 });
+
+describe("#toLongLat", function () {
+	it ("should return the correct longitude and latitude", function () {
+		// Airy 1830 Ellipsoid, National Grid example
+		var NORTHINGS = 313177.270,
+				EASTINGS = 651409.903,
+				expected_lat = OSPoint.toDecFromDMS(52, 39, 27.2531),
+				expected_lon = OSPoint.toDecFromDMS(1, 43, 4.5177),
+				result = new OSPoint(NORTHINGS, EASTINGS).toLongLat();
+		assert.equal(roughEquals(result.longitude, expected_lon), true);
+		assert.equal(roughEquals(result.latitude, expected_lat), true);
+	});
+})
 
 // var test_data = [
 // 	{
@@ -166,7 +187,7 @@ describe("#M", function () {
 // 			assert.equal(etrs89.longitude, t.etrs89.longitude);
 // 		});
 		
-// 		it ("should have the right osgb36 conversion", function () {
+// 		it ("should have the right OSGB36 conversion", function () {
 // 			osgb36 = test_point.toOSGB36();
 // 			assert.equal(osgb36.latitude, t.osgb36.latitude);
 // 			assert.equal(osgb36.longitude, t.osgb36.longitude);

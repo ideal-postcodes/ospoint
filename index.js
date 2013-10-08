@@ -9,6 +9,10 @@ var ELLIPSOID = {
 	airy1830: {
 		a: 6377563.396, // Semi-major axis
 		b: 6356256.909  // Semi-minor axis
+	},
+	grs80: {
+		a: 6378137.000,
+		b: 6356752.3141
 	}
 }
 
@@ -56,6 +60,31 @@ OSPoint.prototype.toETRS89 = function () {
 
 OSPoint.prototype.toLongLat = function () {
 	return toLongLat(this.northings, this.eastings);
+}
+
+OSPoint.toCartesian = function (lon, lat, H, ellipsoid) {
+	var ellipsoid = ELLIPSOID[ellipsoid] || ELLIPSOID['airy1830'],
+			a = ellipsoid.a,
+			b = ellipsoid.b,
+			e2 = OSPoint.e2(a, b),
+			v = a * Math.pow(1 - e2 * sin2(lat), -0.5),
+			x = (v + H) * cos(lat) * cos(lon),
+			y = (v + H) * cos(lat) * sin(lon),
+			z = ((1-e2)*v + H) * sin(lat);
+
+	return {
+		x: x,
+		y: y,
+		z: z
+	};
+}
+
+OSPoint.toLatLon = function (x, y, z, ellipsoid) {
+	var ellipsoid = ELLIPSOID[ellipsoid] || ELLIPSOID['airy1830'],
+			a = ellipsoid.a,
+			b = ellipsoid.b,
+			e2 = OSPoint.e2(a, b),
+
 }
 
 /* 
@@ -139,6 +168,10 @@ var tan4 = function (radians) {
 
 var tan6 = function (radians) {
 	return Math.pow(Math.tan(radians), 6);
+}
+
+var arctan = function (radians) {
+	return Math.atan(radians);
 }
 
 var sec = function (radians) {
@@ -234,6 +267,8 @@ var toLongLat = function (northings, eastings) {
 		longitude: OSPoint.toDegrees(lon)
 	};
 }
+
+
 
 
 module.exports = OSPoint;

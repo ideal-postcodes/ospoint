@@ -113,7 +113,22 @@ describe("#toLongLat", function () {
 		assert.equal(roughEquals(result.longitude, expected_lon), true);
 		assert.equal(roughEquals(result.latitude, expected_lat), true);
 	});
-})
+});
+
+describe("#toCartesian", function () {
+	it ("should correctly map lon, lat & height to 3D cartesian points", function () {
+		var	lon = OSPoint.toRadians(OSPoint.toDecFromDMS(1, 43, 4.5177)),
+				lat = OSPoint.toRadians(OSPoint.toDecFromDMS(52, 39, 27.2531)),
+				height = 24.7,
+				expected_x = 3874938.849,
+				expected_y = 116218.624,
+				expected_z = 5047168.208,
+				result = OSPoint.toCartesian(lon, lat, height);
+		assert.equal(roughEquals(expected_x, result.x), true);
+		assert.equal(roughEquals(expected_y, result.y), true);
+		assert.equal(roughEquals(expected_z, result.z), true);
+	});
+});
 
 // var test_data = [
 // 	{

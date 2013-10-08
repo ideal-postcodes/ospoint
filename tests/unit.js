@@ -130,6 +130,21 @@ describe("#toCartesian", function () {
 	});
 });
 
+describe("#toLatLon", function () {
+	it ("should correctly map 3d cartiesian points to lon, lat & height given ellipsoid", function () {
+		var	expected_lon = OSPoint.toDecFromDMS(1, 43, 4.5177),
+				expected_lat = OSPoint.toDecFromDMS(52, 39, 27.2531),
+				expected_height = 24.7,
+				x = 3874938.849,
+				y = 116218.624,
+				z = 5047168.208,
+				result = OSPoint.toLatLon(x, y ,z);
+		assert.equal(roughEquals(expected_lat, result.latitude), true);
+		assert.equal(roughEquals(expected_lon, result.longitude), true);
+		assert.equal(expected_height - result.height < 0.001, true); // To nearest mm
+	});
+})
+
 // var test_data = [
 // 	{
 // 		postcode: "CF99 1NA",

@@ -84,7 +84,32 @@ OSPoint.toLatLon = function (x, y, z, ellipsoid) {
 			a = ellipsoid.a,
 			b = ellipsoid.b,
 			e2 = OSPoint.e2(a, b),
+			lon = arctan(y / x),
+			p = Math.pow(x*x + y*y, 0.5),
+			initialLat = arctan(z / (p * (1-e2) )),
+			estimateV = function (lat) {
+				return a * Math.pow(1 - e2 * sin2(lat), -0.5);
+			},
+			v = estimateV(initialLat),
+			estimateLat = function (v, prevLat) {
+				return arctan( (z + e2*v*sin(prevLat)) / p);
+			},
+			lat = estimateLat(v, initialLat),
+			TOLERANCE = 0.0000000001;
 
+	while (Math.abs(lat - initialLat) > TOLERANCE) {
+		v = estimateV(lat);
+		initialLat = lat;
+		lat = estimateLat(v, initialLat);
+	}
+
+	var height = (p / cos(lat)) - v;
+
+	return {
+		latitude: OSPoint.toDegrees(lat),
+		longitude: OSPoint.toDegrees(lon),
+		height: height
+	};
 }
 
 /* 

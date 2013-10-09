@@ -1,3 +1,5 @@
+"use strict";
+
 /*
 *
 *	Based on equations provided by Ordnance Survey:
@@ -14,7 +16,7 @@ var ELLIPSOID = {
 		a: 6378137.000,
 		b: 6356752.3141
 	}
-}
+};
 
 var MERCATOR_PROJECTIONS = {
 	national_grid: {
@@ -27,6 +29,31 @@ var MERCATOR_PROJECTIONS = {
 		},
 		ellipsoid: 'airy1830'
 	}
+};
+
+var HELMERT_TRANSFORMATION = {
+	etrs89: {
+		to_osgb36: {
+			tx: -446.448,
+			ty: 125.157,
+			tz: -542.060,
+			rx: -0.1502,
+			ry: -0.2470,
+			rz: -0.8421,
+			s: 20.4894
+		}
+	},
+	osgb36: {
+		to_etrs89: {
+			tx: 446.448,
+			ty: -125.157,
+			tz: 542.060,
+			rx: 0.1502,
+			ry: 0.2470,
+			rz: 0.8421,
+			s: -20.4894
+		}
+	}
 }
 
 function OSPoint (northings, eastings) {
@@ -35,10 +62,10 @@ function OSPoint (northings, eastings) {
 }
 
 OSPoint.prototype.toOSGB36 = function () {
-	// To implement
+	var result = toLongLat(this.northings, this.eastings);
 	return {
-		longitude: undefined,
-		latitude: undefined
+		longitude: result.longitude,
+		latitude: result.latitude
 	};
 }
 
@@ -110,6 +137,10 @@ OSPoint.toLatLon = function (x, y, z, ellipsoid) {
 		longitude: OSPoint.toDegrees(lon),
 		height: height
 	};
+}
+
+OSPoint.helmertDatumTransformation = function (x, y ,z, transformation) {
+
 }
 
 /* 

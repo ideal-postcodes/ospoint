@@ -141,86 +141,180 @@ describe("#toLatLon", function () {
 				result = OSPoint.toLatLon(x, y ,z);
 		assert.equal(roughEquals(expected_lat, result.latitude), true);
 		assert.equal(roughEquals(expected_lon, result.longitude), true);
-		assert.equal(expected_height - result.height < 0.001, true); // To nearest mm
+		assert.equal(expected_height - result.height < 0.001, true); // To nearest mm=
 	});
-})
+});
 
-// var test_data = [
-// 	{
-// 		postcode: "CF99 1NA",
-// 		eastings: 319399,
-// 		northings: 0174573,
-// 		etrs89: {
-// 			latitude: 51.4643670362,
-// 			longitude: -3.1616631629
-// 		},
-// 		osgb36: {
-// 			latitude: 51.4638950367,
-// 			longitude: -3.1603970279
-// 		}
-// 	},
-// 	{
-// 		postcode: "IP13 6DA",
-// 		eastings: 629119,
-// 		northings: 0252222,
-// 		etrs89: {
-// 			latitude: 52.1208165091,
-// 			longitude: 1.3454667496
-// 		},
-// 		osgb36: {
-// 			latitude: 52.1203364624,
-// 			longitude: 1.3472378240
-// 		}
-// 	},
-// 	{
-// 		postcode: "CO11 2AS",
-// 		eastings: 609254,
-// 		northings: 0230944,
-// 		etrs89: {
-// 			latitude: 51.9376510518,
-// 			longitude: 1.0427504990
-// 		},
-// 		osgb36: {
-// 			latitude: 51.9371588651,
-// 			longitude: 1.0444789920
-// 		}
-// 	},
-// 	{
-// 		postcode: "SA31 1BA",
-// 		eastings: 241289,
-// 		northings: 0220062,
-// 		etrs89: {
-// 			latitude: 51.8565245535,
-// 			longitude: -4.3060147321
-// 		},
-// 		osgb36: {
-// 			latitude: 51.8561041316,
-// 			longitude: -4.3048547458
-// 		}
-// 	}
-// ]
+describe("#helmertDatumTransformation", function () {
+	it ("should correctly transform coordinates from one datum to another", function () {
 
-// describe("Transformation", function () {
-// 	var test_point, osgb36, etrs89, wgs84, t;
+	});
+});
 
-// 	for (var i = 0; i < test_data.length; i += 1) {
-// 		t = test_data[i];
+var test_data = [
+	{
+		postcode: "NW1 9HZ",
+		eastings: 529404,
+		northings: 0184524,
+		etrs89: {
+			latitude: 51.5447854882,
+			longitude: -0.1352501434
+		},
+		osgb36: {
+			latitude: 51.5442771915,
+			longitude: -0.1336688927
+		}
+	},
+	{
+		postcode: "PR0 2SP",
+		eastings: 355008,
+		northings: 0429378,
+		etrs89: {
+			latitude: 53.7588208583,
+			longitude: -2.6839040541
+		},
+		osgb36: {
+			latitude: 53.7585958482,
+			longitude: -2.6825100535
+		}
+	},
+	{
+		postcode: "DN2 5HS",
+		eastings: 459159,
+		northings: 0403295,
+		etrs89: {
+			latitude: 53.5230220318,
+			longitude: -1.1091500125
+		},
+		osgb36: {
+			latitude: 53.5227418024,
+			longitude: -1.1075705475
+		}
+	},
+	{
+		postcode: "CV10 7HH",
+		eastings: 434739,
+		northings: 0290733,
+		etrs89: {
+			latitude: 52.5134009573,
+			longitude: -1.4895317568
+		},
+		osgb36: {
+			latitude: 52.5130114397,
+			longitude: -1.4880502263
+		}
+	},
+	{
+		postcode: "EX12 4AB",
+		eastings: 325504,
+		northings: 0089994,
+		etrs89: {
+			latitude: 50.7047805998,
+			longitude: -3.0563290225
+		},
+		osgb36: {
+			latitude: 50.7042316399,
+			longitude: -3.0550762331
+		}
+	},
+	{
+		postcode: "TN19 7BG",
+		eastings: 568230,
+		northings: 0124997,
+		etrs89: {
+			latitude: 50.9997697099,
+			longitude: 0.3961933869
+		},
+		osgb36: {
+			latitude: 50.9991957299,
+			longitude: 0.3978104386
+		}
+	},
+	{
+		postcode: "HP7 9TB",
+		eastings: 497980,
+		northings: 0197802,
+		etrs89: {
+			latitude: 51.6704619411,
+			longitude: -0.5845362102
+		},
+		osgb36: {
+			latitude: 51.6699736171,
+			longitude: -0.5829976678
+		}
+	},
+	{
+		postcode: "WN7 5HT",
+		eastings: 364225,
+		northings: 0401771,
+		etrs89: {
+			latitude: 53.5114112469,
+			longitude: -2.5409279366
+		},
+		osgb36: {
+			latitude: 53.5111549423,
+			longitude: -2.5395242499
+		}
+	},
+	{
+		postcode: "BT65 5HT",
+		eastings: 135906,
+		northings: 486048,
+		etrs89: {
+			latitude: 54.4419336023,
+			longitude: -6.3683857237
+		},
+		osgb36: {
+			latitude: 54.4417963770,
+			longitude: -6.3674760932
+		}
+	},
+	{
+		postcode: "DY1 3LG",
+		eastings: 393430,
+		northings: 0292062,
+		etrs89: {
+			latitude: 52.5264053427,
+			longitude: -2.0982638699
+		},
+		osgb36: {
+			latitude: 52.5260280345,
+			longitude: -2.0968506023
+		}
+	},
+	{
+		postcode: "SA5 8HX",
+		eastings: 263290,
+		northings: 0195174,
+		etrs89: {
+			latitude: 51.6387121087,
+			longitude: -3.9769733171
+		},
+		osgb36: {
+			latitude: 51.6382662551,
+			longitude: -3.9757859793
+		}
+	}
+]
 
-// 		test_point = new OSPoint({
-// 			northings: t.northings,
-// 			easting: t.eastings
-// 		});
+describe("Transformation", function () {	
+	it ("should have the right OSGB36 conversion", function () {
+		var test_point, osgb36, etrs89, wgs84, t;
+		for (var i = 0; i < test_data.length; i += 1) {
+			t = test_data[i];
+			test_point = new OSPoint(t.northings, t.eastings);
 
-// 		it ("should have the right ETRS89 conversion", function () {
-// 			etrs89 = test_point.toETRS89();
-// 			assert.equal(etrs89.latitude, t.etrs89.latitude);
-// 			assert.equal(etrs89.longitude, t.etrs89.longitude);
-// 		});
-		
-// 		it ("should have the right OSGB36 conversion", function () {
-// 			osgb36 = test_point.toOSGB36();
-// 			assert.equal(osgb36.latitude, t.osgb36.latitude);
-// 			assert.equal(osgb36.longitude, t.osgb36.longitude);
-// 		});
-// 	}
-// });
+			it ("should have the right ETRS89 conversion", function () {
+				etrs89 = test_point.toETRS89();
+				assert.equal(etrs89.latitude, t.etrs89.latitude);
+				assert.equal(etrs89.longitude, t.etrs89.longitude);
+			});
+
+			it ("should have the right OSGB36 conversion", function () {
+				osgb36 = test_point.toOSGB36();
+				assert.equal(roughEquals(osgb36.latitude, t.osgb36.latitude), true);
+				assert.equal(roughEquals(osgb36.longitude, t.osgb36.longitude), true);
+			});
+		}
+	});
+});

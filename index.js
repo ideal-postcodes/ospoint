@@ -3,7 +3,7 @@
 * OSPoint
 *	Based on Equations Provided by Ordnance Survey:
 *	A Guide to Coordinate Systems in Great Britain (Dec 2010, D00659 v2.1)
-* https://github.com/cblanc/osconv
+* https://github.com/cblanc/ospoint
 *
 */
 

@@ -184,13 +184,9 @@ OSPoint.prototype.toETRS89 = function (projection) {
 	};
 }
 
-OSPoint.prototype.toWGS84 = function () {
+OSPoint.prototype.toWGS84 = function (projection) {
 	// Set to ETRS89
-	var result = mercatorToLatLon(this.northings, this.eastings, projection);
-	return {
-		longitude: OSPoint.toDegrees(result.longitude),
-		latitude: OSPoint.toDegrees(result.latitude)
-	};
+	return this.toETRS89(projection);
 }
 
 OSPoint.prototype.mercatorToLatLon = function () {

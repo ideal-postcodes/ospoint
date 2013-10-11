@@ -322,4 +322,15 @@ describe("Transformation", function () {
 			assert.equal(roughEquals(etrs89.longitude, t.etrs89.longitude), true);
 		}
 	});
+
+	it ("should have the right WGS84 conversion", function () {
+		var test_point, wgs84, t;
+		for (var i = 0; i < test_data.length; i += 1) {
+			t = test_data[i];
+			test_point = new OSPoint(t.northings, t.eastings);
+			wgs84 = test_point.toWGS84();
+			assert.equal(roughEquals(wgs84.latitude, t.etrs89.latitude), true);
+			assert.equal(roughEquals(wgs84.longitude, t.etrs89.longitude), true);
+		}
+	})
 });

@@ -105,14 +105,14 @@ describe("#M", function () {
 	});
 });
 
-describe("#toLongLat", function () {
+describe("#mercatorToLatLon", function () {
 	it ("should return the correct longitude and latitude", function () {
 		// Airy 1830 Ellipsoid, National Grid example
 		var NORTHINGS = 313177.270,
 				EASTINGS = 651409.903,
 				expected_lat = OSPoint.toDecimalFromDMS(52, 39, 27.2531),
 				expected_lon = OSPoint.toDecimalFromDMS(1, 43, 4.5177),
-				result = new OSPoint(NORTHINGS, EASTINGS).toLongLat();
+				result = new OSPoint(NORTHINGS, EASTINGS).mercatorToLatLon();
 		assert.equal(roughEquals(OSPoint.toDegrees(result.longitude), expected_lon), true);
 		assert.equal(roughEquals(OSPoint.toDegrees(result.latitude), expected_lat), true);
 	});

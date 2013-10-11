@@ -1,34 +1,57 @@
 # Ordnance Survey Point Converter
 
-Converts Ordnance Survey grid points (UK National Grid) into latitude and longitude (OSGB36, ETRS89 & WGS84)
+Converts Ordnance Survey grid points (UK National Grid, Northings & Eastings) into latitude and longitude
+
+For anyone who has ever tried to get useful location data from [Ordnance Survey's Code-Point Open](https://www.ordnancesurvey.co.uk/opendatadownload/products.html) but was stuck with Northings and Eastings, you can use this package to convert those numbers into longitude and latitude.
+
+OSPoint will allow you to convert Northings and Eastings into OSGB36, ETRS89 or WGS84 coordinates. If you're not sure which one you need, you probably just want WGS84.
+
+This package is based on equations provided by the people at the Ordance Survey.
+
+NB: Not yet accurate for Ireland! WGS84/ETRS89 transformation is accurate up to 5m both horizontally and vertically.
 
 ## Getting Started
 
-todo
+```javascript
 
-## How it Works
+var OSPoint = require('ospoint');
 
-National Grid (Mercator Traverse Projection) -> 3D Coordinate System (Longitude/Latitude OSGB36, based on Airy 1830 Ellipsoid) -> ETRS89, WGS84
+// Create a new OSPoint instance, with Northings & Eastings
+var point = new OSPoint("")
+
+// Retrieve OSGB coordinates
+point.toOSGB36();
+
+// Retrieve ETRS89 coordinates
+point.toETRS89();
+
+// Retrieve WGS89 coordinates
+point.toEGS84();
 
 
-## Helper Methods
+```
 
-Some API's necessary for the transformations are also exposed
+## Testing
 
-### toCartesian(longitude, latitude, height [,ellipsoid])
+```shell
+npm test
+```
 
-Converts latitude, longitude and height (and optional ellipsoid) and converts to cartesian X,Y,Z coordinates using ellipsoid centre as origin. Defaults to Airy 1830 Ellipsoid.
+## A note on ETRS89 and WGS84
 
-### toLatLon(x, y, z [,ellipsoid])
+ETRS89 is a variation of WGS84 that takes into account the slow North Easterly drifting of the Eurasian tectonic plate. The WGS84 and ETRS89 coordinate systems coincided in 1989 (hence the name) and have drifted apart at a rate of ~2.5cm per year due to tectonic movements.
 
-Converts converts cartesian X,Y,Z coordinates to longitude, latitude and height. Defaults to Airy 1830 Ellipsoid.
+toWGS84() is currently hard-coded to output the same coordinates as toETRS89(). But in reality WGS and ETRS are [off by ~50-60cm in 2013](http://www.killetsoft.de/t_1009_e.htm). I will implement a more accurate version of toWGS84() some time soon - but this shouldn't matter to you given the 5m accuracy of the OSGB36 -> ETRS89 transformation.
 
-### helmertDatumTransformation(startPoint, transformation)
+## Which Coordinate System do I want to translate Northings and Eastings into?
 
-Performs a Helmert Transformation given a starting point and transformation object
+95% of the time, people want WGS84
 
 ## License
 
 MIT
 
-## Contributions
+## Todo
+
+Fix Northings/Eastings conversion within Ireland
+More rigorous accuracy testing procedure and data set

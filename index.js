@@ -1,6 +1,6 @@
 /*
 *
-* OSCONV
+* OSPoint
 *	Based on Equations Provided by Ordnance Survey:
 *	A Guide to Coordinate Systems in Great Britain (Dec 2010, D00659 v2.1)
 * https://github.com/cblanc/osconv
@@ -165,7 +165,7 @@ var MERCATOR_PROJECTIONS = {
 
 OSPoint.prototype.toOSGB36 = function (projection) {
 	// Use default projection
-	var result = toLongLat(this.northings, this.eastings, projection);
+	var result = mercatorToLatLon(this.northings, this.eastings, projection);
 	return {
 		longitude: OSPoint.toDegrees(result.longitude),
 		latitude: OSPoint.toDegrees(result.latitude)
@@ -173,7 +173,7 @@ OSPoint.prototype.toOSGB36 = function (projection) {
 }
 
 OSPoint.prototype.toETRS89 = function (projection) {
-	var osgb36 = this.toLongLat(this.northings, this.eastings, projection),
+	var osgb36 = this.mercatorToLatLon(this.northings, this.eastings, projection),
 			height = 0,
 			osgbTransform = OSPoint.toCartesian(osgb36.longitude, osgb36.latitude, height),
 			point = OSPoint.helmertTransformation(osgbTransform),
@@ -185,15 +185,16 @@ OSPoint.prototype.toETRS89 = function (projection) {
 }
 
 OSPoint.prototype.toWGS84 = function () {
-	// To implement
+	// Set to ETRS89
+	var result = mercatorToLatLon(this.northings, this.eastings, projection);
 	return {
-		longitude: undefined,
-		latitude: undefined
+		longitude: OSPoint.toDegrees(result.longitude),
+		latitude: OSPoint.toDegrees(result.latitude)
 	};
 }
 
-OSPoint.prototype.toLongLat = function () {
-	return toLongLat(this.northings, this.eastings);
+OSPoint.prototype.mercatorToLatLon = function () {
+	return mercatorToLatLon(this.northings, this.eastings);
 }
 
 OSPoint.toCartesian = function (lon, lat, H, ellipsoid) {
@@ -303,7 +304,7 @@ OSPoint.helmertTransformation = function (point, transformation) {
 	};
 }
 
-var toLongLat = function (northings, eastings, projection) {
+var mercatorToLatLon = function (northings, eastings, projection) {
 	var projection = MERCATOR_PROJECTIONS[projection] || MERCATOR_PROJECTIONS['national_grid'],
 			ellipsoid = ELLIPSOID[projection.ellipsoid],
 			E = eastings,

@@ -17,7 +17,7 @@ NB: Not yet accurate for Ireland! WGS84/ETRS89 transformation is accurate up to 
 var OSPoint = require('ospoint');
 
 // Create a new OSPoint instance, with Northings & Eastings
-var point = new OSPoint("")
+var point = new OSPoint("NORTHINGS", "EASTINGS");
 
 // Retrieve OSGB coordinates
 point.toOSGB36();
@@ -28,8 +28,12 @@ point.toETRS89();
 // Retrieve WGS89 coordinates
 point.toEGS84();
 
-
 ```
+
+**Things to note**
+- Northings and Eastings must be a number (no grid letters)
+- To be safe, you should pass in raw Northings and Eastings as strings. They occasionally come with a leading 0s from the OS dataset, which javascript will interpret as a base-8 number (I'm not joking...)
+- All transformation methods return an object with longitude and latitude properties in decimal degrees
 
 ## Testing
 
@@ -37,11 +41,11 @@ point.toEGS84();
 npm test
 ```
 
-## A note on ETRS89 and WGS84
+## Note on ETRS89 and WGS84 Coordinate Systems
 
 ETRS89 is a variation of WGS84 that takes into account the slow North Easterly drifting of the Eurasian tectonic plate. The WGS84 and ETRS89 coordinate systems coincided in 1989 (hence the name) and have drifted apart at a rate of ~2.5cm per year due to tectonic movements.
 
-toWGS84() is currently hard-coded to output the same coordinates as toETRS89(). But in reality WGS and ETRS are [off by ~50-60cm in 2013](http://www.killetsoft.de/t_1009_e.htm). I will implement a more accurate version of toWGS84() some time soon - but this shouldn't matter to you given the 5m accuracy of the OSGB36 -> ETRS89 transformation.
+toWGS84() is currently hard-coded to output the same coordinates as toETRS89(). But in reality WGS and ETRS are [off by ~50-60cm in 2013](http://www.killetsoft.de/t_1009_e.htm). I will implement a more accurate version of toWGS84() some time soon - but this shouldn't really matter given the 5m accuracy of the OSGB36 -> ETRS89 transformation.
 
 ## Which Coordinate System do I want to translate Northings and Eastings into?
 

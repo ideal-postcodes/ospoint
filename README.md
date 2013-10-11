@@ -25,8 +25,8 @@ point.toOSGB36();
 // Retrieve ETRS89 coordinates
 point.toETRS89();
 
-// Retrieve WGS89 coordinates
-point.toEGS84();
+// Retrieve WGS84 coordinates
+point.toWGS84();
 
 ```
 

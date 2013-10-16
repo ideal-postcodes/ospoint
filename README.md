@@ -1,3 +1,5 @@
+"!https://travis-ci.org/cblanc/ospoint.png!":https://travis-ci.org/cblanc/ospoint
+
 # Ordnance Survey Point Converter
 
 Converts Ordnance Survey grid points (UK National Grid, Northings & Eastings) into latitude and longitude

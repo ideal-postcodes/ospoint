@@ -19,8 +19,9 @@
     "northings",
     "eastings"
   ],
-  "devDependencies": {
-    "chai": "1.8.x"
+  "dependencies": {
+    "chai": "1.8.x",
+    "mocha": "1.9.x"
   },
   "author": "Chris Blanchard",
   "license": "MIT"

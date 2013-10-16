@@ -1,4 +1,4 @@
-"!https://travis-ci.org/cblanc/ospoint.png!":https://travis-ci.org/cblanc/ospoint
+[![Build Status](https://travis-ci.org/cblanc/ospoint.png)](https://travis-ci.org/cblanc/ospoint)
 
 # Ordnance Survey Point Converter
 

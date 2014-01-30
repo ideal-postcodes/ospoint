@@ -1,6 +1,6 @@
 {
   "name": "ospoint",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Converts Ordnance Survey grid references into Longitgude and Latitude",
   "main": "index.js",
   "scripts": {
@@ -19,9 +19,11 @@
     "northings",
     "eastings"
   ],
-  "dependencies": {
+  "devDependencies": {
     "chai": "1.8.x",
     "mocha": "1.9.x"
+  },
+  "dependencies": {
   },
   "author": "Chris Blanchard",
   "license": "MIT"

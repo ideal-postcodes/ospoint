@@ -173,7 +173,7 @@ OSPoint.prototype.toOSGB36 = function (projection) {
 }
 
 OSPoint.prototype.toETRS89 = function (projection) {
-	var osgb36 = this.mercatorToLatLon(this.northings, this.eastings, projection),
+	var osgb36 = mercatorToLatLon(this.northings, this.eastings, projection),
 			height = 0,
 			osgbTransform = OSPoint.toCartesian(osgb36.longitude, osgb36.latitude, height),
 			point = OSPoint.helmertTransformation(osgbTransform),

@@ -259,20 +259,6 @@ var test_data = [
 			longitude: -2.5395242499
 		}
 	},
-	// FIX IRELAND
-	// {
-	// 	postcode: "BT65 5HT",
-	// 	eastings: "135906",
-	// 	northings: "486048",
-	// 	etrs89: {
-	// 		latitude: 54.201949270797,
-	// 		longitude: -6.050986159206
-	// 	},
-	// 	osgb36: {
-	// 		latitude: 54.4417963770,
-	// 		longitude: -6.3674760932
-	// 	}
-	// },
 	{
 		postcode: "DY1 3LG",
 		eastings: "393430",

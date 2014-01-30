@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/cblanc/ospoint.png)](https://travis-ci.org/cblanc/ospoint)
+[![Dependency Status](https://gemnasium.com/cblanc/ospoint.png)](https://gemnasium.com/cblanc/ospoint)
 
 # Ordnance Survey Point Converter
 
@@ -10,7 +11,7 @@ OSPoint will allow you to convert Northings and Eastings into OSGB36, ETRS89 or 
 
 This package is based on equations provided by the people at the Ordance Survey.
 
-NB: Not yet accurate for Ireland! WGS84/ETRS89 transformation is accurate up to 5m both horizontally and vertically.
+OSPoint will accruately translate Northings and Eastings for Great Britain (i.e. excl. Northern Ireland - which is not included in Ordnance Survey's Codepoint Open dataset)
 
 ## Getting Started
 
@@ -56,8 +57,3 @@ toWGS84() is currently hard-coded to output the same coordinates as toETRS89(). 
 ## License
 
 MIT
-
-## Todo
-
-Fix Northings/Eastings conversion within Ireland
-More rigorous accuracy testing procedure and data set

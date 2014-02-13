@@ -1,0 +1,134 @@
+{
+	"data" : [
+		{
+			"postcode" : "NW1 9HZ",
+			"eastings" : "529404",
+			"northings" : "0184524",
+			"etrs89" : {
+				"latitude" : 51.544783154944,
+				"longitude" : -0.135276077351
+			},
+			"osgb36" : {
+				"latitude" : 51.5442771915,
+				"longitude" : -0.1336688927
+			}
+		},
+		{
+			"postcode" : "PR0 2SP",
+			"eastings" : "355008",
+			"northings" : "0429378",
+			"etrs89" : {
+				"latitude" : 53.758805090828,
+				"longitude" : -2.683907021034
+			},
+			"osgb36" : {
+				"latitude" : 53.7585958482,
+				"longitude" : -2.6825100535
+			}
+		},
+		{
+			"postcode" : "DN2 5HS",
+			"eastings" : "459159",
+			"northings" : "0403295",
+			"etrs89" : {
+				"latitude" : 53.523001805421,
+				"longitude" : -1.109147509169
+			},
+			"osgb36" : {
+				"latitude" : 53.5227418024,
+				"longitude" : -1.1075705475
+			}
+		},
+		{
+			"postcode" : "CV10 7HH",
+			"eastings" : "434739",
+			"northings" : "0290733",
+			"etrs89" : {
+				"latitude" : 52.513383912173,
+				"longitude" : -1.489540169119
+			},
+			"osgb36" : {
+				"latitude" : 52.5130114397,
+				"longitude" : -1.4880502263
+			}
+		},
+		{
+			"postcode" : "EX12 4AB",
+			"eastings" : "325504",
+			"northings" : "0089994",
+			"etrs89" : {
+				"latitude" : 50.704792591055,
+				"longitude" : -3.056320818135
+			},
+			"osgb36" : {
+				"latitude" : 50.7042316399,
+				"longitude" : -3.0550762331
+			}
+		},
+		{
+			"postcode" : "TN19 7BG",
+			"eastings" : "568230",
+			"northings" : "0124997",
+			"etrs89" : {
+				"latitude" : 50.999773245709,
+				"longitude" : 0.396165563528
+			},
+			"osgb36" : {
+				"latitude" : 50.9991957299,
+				"longitude" : 0.3978104386
+			}
+		},
+		{
+			"postcode" : "HP7 9TB",
+			"eastings" : "497980",
+			"northings" : "0197802",
+			"etrs89" : {
+				"latitude" : 51.670457934396,
+				"longitude" : -0.584558659291
+			},
+			"osgb36" : {
+				"latitude" : 51.6699736171,
+				"longitude" : -0.5829976678
+			}
+		},
+		{
+			"postcode" : "WN7 5HT",
+			"eastings" : "364225",
+			"northings" : "0401771",
+			"etrs89" : {
+				"latitude" : 53.511395303404,
+				"longitude" : -2.540928765517
+			},
+			"osgb36" : {
+				"latitude" : 53.5111549423,
+				"longitude" : -2.5395242499
+			}
+		},
+		{
+			"postcode" : "DY1 3LG",
+			"eastings" : "393430",
+			"northings" : "0292062",
+			"etrs89" : {
+				"latitude" : 52.526390146896,
+				"longitude" : -2.098269628082
+			},
+			"osgb36" : {
+				"latitude" : 52.5260280345,
+				"longitude" : -2.0968506023
+			}
+		},
+		{
+			"postcode" : "SA5 8HX",
+			"eastings" : "263290",
+			"northings" : "0195174",
+			"etrs89" : {
+				"latitude" : 51.638707177807,
+				"longitude" : -3.976954712328
+			},
+			"osgb36" : {
+				"latitude" : 51.6382662551,
+				"longitude" : -3.9757859793
+			}
+		}
+	]
+}

@@ -11,7 +11,9 @@ OSPoint will allow you to convert Northings and Eastings into OSGB36, ETRS89 or 
 
 This package is based on equations provided by the people at the Ordance Survey.
 
-OSPoint will accruately translate Northings and Eastings for Great Britain (i.e. excl. Northern Ireland - which is not included in Ordnance Survey's Codepoint Open dataset)
+OSPoint will accruately translate Northings and Eastings for the United Kingdom. 
+
+**New** Now supports conversion of Irish National Grid coordinates. Please take care when transforming Irish coordinates - you will need to pass in the name of the [proper mercator projection](http://en.wikipedia.org/wiki/Irish_grid_reference_system) (as demonstrated below).
 
 ## Getting Started
 
@@ -30,6 +32,23 @@ point.toETRS89();
 
 // Retrieve WGS84 coordinates
 point.toWGS84();
+
+```
+
+If your Northings and Eastings data is a Irish National Grid coordinate, be sure to pass in "irish_national_grid" when converting. OSPoint will then use the appropriate mercator projection. For example:
+
+```javascript
+
+var OSPoint = require('ospoint');
+
+// Create a new OSPoint instance, with Irish Northings & Eastings
+var point = new OSPoint("NORTHINGS", "EASTINGS");
+
+// Retrieve ETRS89 coordinates
+point.toETRS89("irish_national_grid");
+
+// Retrieve WGS84 coordinates
+point.toWGS84("irish_national_grid");
 
 ```
 

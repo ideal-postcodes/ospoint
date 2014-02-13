@@ -1,0 +1,82 @@
+{
+	"data" : [
+		{
+			"postcode" : "BT1 2AG",
+			"eastings" : "333890",
+			"northings" : "374638",
+			"etrs89" : {
+				"latitude" : 54.60222639,
+				"longitude" : -5.92889303
+			},
+			"osgb36" : {
+				"latitude" : null,
+				"longitude" : null
+			}
+		},
+		{
+			"postcode" : "BT2 7AD",
+			"eastings" : "333634",
+			"northings" : "373505",
+			"etrs89" : {
+				"latitude" : 54.5921228,
+				"longitude" : -5.93336692
+			},
+			"osgb36" : {
+				"latitude" : null,
+				"longitude" : null
+			}
+		},
+		{
+			"postcode" : "BT4 1AD",
+			"eastings" : "336520",
+			"northings" : "374740",
+			"etrs89" : {
+				"latitude" : 54.60243927,
+				"longitude" : -5.88817859
+			},
+			"osgb36" : {
+				"latitude" : null,
+				"longitude" : null
+			}
+		},
+		{
+			"postcode" : "BT5 4AF",
+			"eastings" : "335492",
+			"northings" : "374027",
+			"etrs89" : {
+				"latitude" : 54.59631491,
+				"longitude" : -5.9044033
+			},
+			"osgb36" : {
+				"latitude" : null,
+				"longitude" : null
+			}
+		},
+		{
+			"postcode" : "BT62 1AE",
+			"eastings" : "297411",
+			"northings" : "356929",
+			"etrs89" : {
+				"latitude" : 54.45153752,
+				"longitude" : -6.49897188
+			},
+			"osgb36" : {
+				"latitude" : null,
+				"longitude" : null
+			}
+		},
+		{
+			"postcode" : "BT7 1AB",
+			"eastings" : "333887",
+			"northings" : "372959",
+			"etrs89" : {
+				"latitude" : 54.58715436,
+				"longitude" : -5.92970442
+			},
+			"osgb36" : {
+				"latitude" : null,
+				"longitude" : null
+			}
+		}		
+	]
+}

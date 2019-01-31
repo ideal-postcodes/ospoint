@@ -20,7 +20,7 @@
     "eastings"
   ],
   "devDependencies": {
-    "chai": "1.8.x",
+    "chai": "4.2.x",
     "mocha": "1.9.x"
   },
   "dependencies": {

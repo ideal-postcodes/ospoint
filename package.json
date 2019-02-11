@@ -39,6 +39,7 @@
     ],
     "all": true
   },
+  "runkitExampleFilename": "example.js",
   "dependencies": {},
   "author": "Ideal Postcodes",
   "license": "MIT"

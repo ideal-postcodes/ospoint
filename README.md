@@ -2,6 +2,8 @@
 
 # Ordnance Survey Point Converter
 
+[![Try OsPoint on RunKit](https://badge.runkitcdn.com/ospoint.svg)](https://npm.runkit.com/ospoint)
+
 Converts Ordnance Survey grid points (UK National Grid, Northings & Eastings) into latitude and longitude
 
 For anyone who has ever tried to get useful location data from [Ordnance Survey's Code-Point Open](https://www.ordnancesurvey.co.uk/opendatadownload/products.html) but was stuck with Northings and Eastings, you can use this package to convert those numbers into longitude and latitude.

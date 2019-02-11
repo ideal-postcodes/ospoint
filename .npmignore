@@ -1,0 +1,7 @@
+.circleci
+tests
+.gitignore
+.nyc_output
+.git
+coverage
+

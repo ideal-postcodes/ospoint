@@ -4,7 +4,8 @@
   "description": "Converts Ordnance Survey grid references into Longitgude and Latitude",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha tests --exit"
+    "coverage":  "node_modules/.bin/nyc report --reporter=text-lcov | node_modules/.bin/coveralls || true",
+    "test": "NODE_ENV=test node_modules/.bin/nyc node_modules/.bin/mocha tests --exit"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,22 @@
   ],
   "devDependencies": {
     "chai": "~4.2.0",
-    "mocha": "~5.2.0"
+    "coveralls": "~3.0.2",
+    "mocha": "~5.2.0",
+    "nyc": "~13.2.0"
+  },
+  "nyc": {
+    "include": [
+      "index.js"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "all": true
   },
   "dependencies": {},
   "author": "Ideal Postcodes",

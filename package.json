@@ -4,11 +4,11 @@
   "description": "Converts Ordnance Survey grid references into Longitgude and Latitude",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests"
+    "test": "node_modules/.bin/mocha tests --exit"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cblanc/ospoint"
+    "url": "https://github.com/ideal-postcodes/ospoint"
   },
   "keywords": [
     "ordnance",
@@ -20,11 +20,10 @@
     "eastings"
   ],
   "devDependencies": {
-    "chai": "4.2.x",
-    "mocha": "5.2.x"
+    "chai": "~4.2.0",
+    "mocha": "~5.2.0"
   },
-  "dependencies": {
-  },
-  "author": "Chris Blanchard",
+  "dependencies": {},
+  "author": "Ideal Postcodes",
   "license": "MIT"
 }

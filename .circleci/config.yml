@@ -30,7 +30,7 @@ jobs:
              - node_modules/
        - run: npm test
        
-   node10:
+   node12:
      docker:
        - image: circleci/node:12.9
      steps:

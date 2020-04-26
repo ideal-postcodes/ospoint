@@ -4,7 +4,6 @@
   "description": "Converts Ordnance Survey grid references into Longitgude and Latitude",
   "main": "index.js",
   "scripts": {
-    "coverage":  "node_modules/.bin/nyc report --reporter=text-lcov | node_modules/.bin/coveralls || true",
     "test": "NODE_ENV=test node_modules/.bin/nyc node_modules/.bin/mocha tests --exit"
   },
   "repository": {
@@ -22,7 +21,6 @@
   ],
   "devDependencies": {
     "chai": "~4.2.0",
-    "coveralls": "~3.0.2",
     "mocha": "~7.1.0",
     "nyc": "~15.0.1"
   },

@@ -1,4 +1,7 @@
-[![CircleCI](https://circleci.com/gh/ideal-postcodes/ospoint.svg?style=svg)](https://circleci.com/gh/ideal-postcodes/ospoint) [![Coverage Status](https://coveralls.io/repos/github/ideal-postcodes/ospoint/badge.svg?branch=master)](https://coveralls.io/github/ideal-postcodes/ospoint?branch=master) ![Minified & Gzipped Size](https://img.shields.io/bundlephobia/minzip/ospoint.svg?style=flat) ![Dependencies](https://img.shields.io/david/ideal-postcodes/ospoint.svg?style=flat)
+![CI](https://github.com/ideal-postcodes/ospoint/workflows/CI/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/ideal-postcodes/ospoint/badge.svg?branch=master)](https://coveralls.io/github/ideal-postcodes/ospoint?branch=master)
+![Minified & Gzipped Size](https://img.shields.io/bundlephobia/minzip/ospoint.svg?style=flat)
+![Dependencies](https://img.shields.io/david/ideal-postcodes/ospoint.svg?style=flat)
 
 # Ordnance Survey Point Converter
 
